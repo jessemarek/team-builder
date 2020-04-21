@@ -51,6 +51,12 @@ function App() {
           return <Member key={member.id} details={member} />
         })
       }
+
+      <Form 
+        values={formValues} 
+        onInputChange={onInputChange} 
+        onSubmit={onSubmit} 
+      />
       
     </div>
   );
