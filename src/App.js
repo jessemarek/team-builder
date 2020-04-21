@@ -36,11 +36,34 @@ function App() {
 
   //Callbacks
   const onInputChange = evt =>{
+    //Name of the Input that caused event
+    const name = evt.target.name
+    //Value of the Input 
+    const value = evt.target.value
 
+    //Set the new value into state
+    setFormValues({
+      ...formValues, [name]: value
+    })
   }
 
   const onSubmit = evt => {
+    //Prevent page reload
+    evt.preventDefault()
 
+    //create new member object from the values in the form fields
+    const newMmeber = {
+      id: uuid(),
+      name: formValues.name,
+      email: formValues.email,
+      role:formValues.role
+    }
+
+    //Set a new state with the newMember added
+    setMemberList([...memberList, newMmeber])
+
+    //Clear the form values
+    setFormValues(initialFormValues)
   }
 
   return (

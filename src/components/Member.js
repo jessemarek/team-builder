@@ -11,7 +11,12 @@ const Member = props =>{
         <div className="member container">
             <h2>{name}</h2>
             <p>Email: {email}</p>
-            <p>Role: {role}</p>
+            <p>Role:&nbsp; 
+                {role === 'front' ? 'Front End Dev' : null}
+                {role === 'back' ? 'Back End Dev' : null}
+                {role === 'ops' ? 'Dev Ops' : null}
+                {role === 'full' ? 'Full Stack Dev' : null}
+            </p>
 
         </div>
     )
