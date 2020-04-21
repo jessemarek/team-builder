@@ -2,11 +2,11 @@ import React from 'react'
 
 const Member = props =>{
     const { name, email, role } = props.details
-    const setEditMember = props.toEdit
+    const setMemberToEdit = props.editMember
     
-    //Inject current member details into the editMember state
-    const toEdit = () =>{
-        setEditMember(props.details)
+    //Inject current member details into the memberToEdit state
+    const editMember = () =>{
+        setMemberToEdit(props.details)
     }
 
     //Return a loading message while we wait for data to return
@@ -25,7 +25,7 @@ const Member = props =>{
                 {role === 'ops' ? 'Dev Ops' : null}
                 {role === 'data' ? 'Data Science' : null}
             </p>
-            <button type="button" onClick={toEdit}>edit</button>
+            <button type="button" onClick={editMember}>edit</button>
         </div>
     )
 }

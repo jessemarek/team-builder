@@ -35,7 +35,8 @@ function App() {
   const [formValues, setFormValues] = useState(initialFormValues)
 
   //State for editing member entries
-  const [editMember, setEditMember] = useState(null)
+  const [memberToEdit, setMemberToEdit] = useState(null)
+  const [isEdit, setIsEdit] = useState(false)
 
   //Callbacks
 
@@ -57,34 +58,42 @@ function App() {
     //Prevent page reload
     evt.preventDefault()
 
-    //create new member object from the values in the form fields
-    const newMember = {
-      id: uuid(),
-      name: formValues.name,
-      email: formValues.email,
-      role:formValues.role
+    if(isEdit){
+      console.log('This is an Edit')
     }
+    else{
+      //create new member object from the values in the form fields
+      const newMember = {
+        id: uuid(),
+        name: formValues.name,
+        email: formValues.email,
+        role:formValues.role
+      }
 
-    //Set a new state with the newMember added
-    setMemberList([...memberList, newMember])
+      //Set a new state with the newMember added
+      setMemberList([...memberList, newMember])
+    }
 
     //Clear the form values
     setFormValues(initialFormValues)
+    
   }
 
+  //Whenever the memberToEdit
   useEffect(() =>{
-    if(editMember){
-      setFormValues(editMember)
+    if(memberToEdit){
+      setIsEdit(true)
+      setFormValues(memberToEdit)
     }
     
-  }, [editMember])
+  }, [memberToEdit])
 
   return (
     <div className="container">
       <header><h1>Members App</h1></header>
       {
         memberList.map(member => {
-          return <Member key={member.id} details={member} toEdit={setEditMember} />
+          return <Member key={member.id} details={member} editMember={setMemberToEdit} />
         })
       }
 
@@ -92,6 +101,7 @@ function App() {
         values={formValues} 
         onInputChange={onInputChange} 
         onSubmit={onSubmit}
+        isEdit={isEdit}
       />
       
     </div>
