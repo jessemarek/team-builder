@@ -42,4 +42,12 @@ button {
   width: 4rem;
   border-radius: 8px;
   border: 1px solid crimson;
+  outline: none;
+  transition: all 0.5s ease;
+}
+
+button:hover{
+  color: white;
+  background-color: crimson;
+  cursor: pointer;
 }

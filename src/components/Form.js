@@ -8,13 +8,14 @@ const Form = props =>{
     } = props
 
     return(
-        <form className="member container">
+        <form className="member container" onSubmit={onSubmit}>
             {/* Member Name Input on Form */}
             <label>
                 Name:&nbsp;
                 <input 
                     name="name"
                     type="text"
+                    placeholder="Enter Full Name"
                     value={values.name}
                     onChange={onInputChange}
                  />
@@ -26,6 +27,7 @@ const Form = props =>{
                 <input 
                     name="email"
                     type="text"
+                    placeholder="member@example.com"
                     value={values.email}
                     onChange={onInputChange}
                  />
@@ -39,15 +41,17 @@ const Form = props =>{
                     value={values.role}
                     onChange={onInputChange}
                 >
-                <option disbaled selected value>-- Select a Role --</option>
+                <option disabled value="">-- Select a Role --</option>
+                <option value="full">Full Stack Dev</option>
                 <option value="front">Front End Dev</option>
                 <option value="back">Back End Dev</option>
                 <option value="ops">Dev Ops</option>
-                <option value="full">Full Stack Dev</option>
+                <option value="data">Data Science</option>
                 </select>
             </label>
 
-            <button onClick={onSubmit}>submit</button>
+            {/* Form Submit Button */}
+            <button type="submit">submit</button>
 
         </form>
     )

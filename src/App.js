@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid'
 
 //Components
@@ -11,9 +11,9 @@ import './App.css';
 //Shape of the data that would be pulled from an API
 const initialMemberList = [{
   id: uuid(),
-  name: 'Jesse',
-  email: 'jesse@email.com',
-  role: 'Front End Dev'
+  name: 'Jesse Marek',
+  email: 'jesse.marek@email.com',
+  role: 'full'
 
 }]
 
@@ -34,7 +34,12 @@ function App() {
   //State for the Form
   const [formValues, setFormValues] = useState(initialFormValues)
 
+  //State for editing member entries
+  const [editMember, setEditMember] = useState(null)
+
   //Callbacks
+
+  //Update values from inputs when they change
   const onInputChange = evt =>{
     //Name of the Input that caused event
     const name = evt.target.name
@@ -47,12 +52,13 @@ function App() {
     })
   }
 
+  //Add new members to list when form is submitted
   const onSubmit = evt => {
     //Prevent page reload
     evt.preventDefault()
 
     //create new member object from the values in the form fields
-    const newMmeber = {
+    const newMember = {
       id: uuid(),
       name: formValues.name,
       email: formValues.email,
@@ -60,25 +66,32 @@ function App() {
     }
 
     //Set a new state with the newMember added
-    setMemberList([...memberList, newMmeber])
+    setMemberList([...memberList, newMember])
 
     //Clear the form values
     setFormValues(initialFormValues)
   }
+
+  useEffect(() =>{
+    if(editMember){
+      setFormValues(editMember)
+    }
+    
+  }, [editMember])
 
   return (
     <div className="container">
       <header><h1>Members App</h1></header>
       {
         memberList.map(member => {
-          return <Member key={member.id} details={member} />
+          return <Member key={member.id} details={member} toEdit={setEditMember} />
         })
       }
 
       <Form 
         values={formValues} 
         onInputChange={onInputChange} 
-        onSubmit={onSubmit} 
+        onSubmit={onSubmit}
       />
       
     </div>
